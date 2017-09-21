@@ -4,7 +4,6 @@ from main import NumberToWord
 
 
 class NumberToWordTestCase(unittest.TestCase):
-
     def __init__(self, methodName='test_number_to_word'):
         super(NumberToWordTestCase, self).__init__(methodName)
         self.number_to_word = NumberToWord()
@@ -29,6 +28,19 @@ class NumberToWordTestCase(unittest.TestCase):
         to_test = [435, 163, 219, 591, 833, 700]
         should_be_list = ['four hundred and thirty-five', 'one hundred and sixty-three', 'two hundred and nineteen',
                           'five hundred and ninety-one', 'eight hundred and thirty-three', 'seven hundred']
+        self._test(to_test, should_be_list)
+
+    def test_thousand(self):
+        to_test = [1000, 4950, 2445, 6675, 5876, 9873, 9999]
+        should_be_list = [
+            'one thousand',
+            'four thousand, nine hundred and fifty',
+            'two thousand, four hundred and forty-four',
+            'six thousand, six hundred and seventy-five',
+            'five thousand, eight hundred and seventy-six',
+            'nine thousand, eight hundred and seventy-three',
+            'nine thousand, nine hundred and ninety-nine'
+        ]
         self._test(to_test, should_be_list)
 
 
