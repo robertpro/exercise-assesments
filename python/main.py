@@ -2,8 +2,7 @@ from __future__ import print_function
 
 
 class NumberToWord(object):
-    def __init__(self, number):
-        self.number = number
+    def __init__(self):
         self.lower = {
             0: 'zero', 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight',
             9: 'nine',
@@ -14,18 +13,38 @@ class NumberToWord(object):
             10: 'ten', 20: 'twenty', 30: 'thirty', 40: 'forty', 50: 'fifty', 60: 'sixty', 70: 'seventy', 80: 'eighty',
             90: 'ninety'}
 
-    def _lower(self):
-        return self.lower[self.number]
+    def _lower(self, number):
+        return self.lower[number]
 
-    def get_number_name(self):
-        if self.number < 20:
-            return self._lower()
+    def _ten(self, number):
+        if number % 10 == 0:
+            return self.ten[number]
+        else:
+            ten, unit = divmod(number, 10)
+            ten = ten * 10
+            ten, unit = self.ten[ten], self.lower[unit]
+            return "{ten}-{unit}".format(ten=ten, unit=unit)
+
+    def _hundred(self, number):
+        hundred, ten = divmod(number, 100)
+        if number % 100 == 0:
+            return "{hundred} hundred".format(hundred=self.lower[hundred])
+        else:
+            return "{hundred} hundred and {ten}".format(hundred=self.lower[hundred], ten=self.get_number_name(ten))
+
+    def get_number_name(self, number):
+        if number < 20:
+            return self._lower(number)
+        elif number < 100:
+            return self._ten(number)
+        elif number < 1000:
+            return self._hundred(number)
 
 
 def print_number_name():
     number = input("Write a number: ")
-    number_to_word = NumberToWord(number)
-    name = number_to_word.get_number_name()
+    number_to_word = NumberToWord()
+    name = number_to_word.get_number_name(number)
     print(name)
 
 
