@@ -31,15 +31,17 @@ class NumberToWordTestCase(unittest.TestCase):
         self._test(to_test, should_be_list)
 
     def test_thousand(self):
-        to_test = [1000, 4950, 2445, 6675, 5876, 9873, 9999]
+        to_test = [1000, 4950, 2445, 6675, 5876, 9873, 9999, 99999, 999999]
         should_be_list = [
             'one thousand',
             'four thousand, nine hundred and fifty',
-            'two thousand, four hundred and forty-four',
+            'two thousand, four hundred and forty-five',
             'six thousand, six hundred and seventy-five',
             'five thousand, eight hundred and seventy-six',
             'nine thousand, eight hundred and seventy-three',
-            'nine thousand, nine hundred and ninety-nine'
+            'nine thousand, nine hundred and ninety-nine',
+            'ninety-nine thousand, nine hundred and ninety-nine',
+            'nine hundred and ninety-nine thousand, nine hundred and ninety-nine'
         ]
         self._test(to_test, should_be_list)
 

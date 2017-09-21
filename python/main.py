@@ -52,6 +52,21 @@ class NumberToWord(object):
         else:
             return "{hundred} hundred and {ten}".format(hundred=self.lower[hundred], ten=self.get_number_name(ten))
 
+    def _thousand(self, number):
+        """
+        Check if the number is a thousand, and returns its value from a combination of self.lower and self.ten
+        if number is not a hundred, get hundred, ten and unit then returns the name of the number in words
+        :param number: int
+        :return: str
+        :returns the number name
+        """
+        thousand, hundred = divmod(number, 1000)
+        if number % 1000 == 0:
+            return "{thousand} thousand".format(thousand=self.lower[thousand])
+        else:
+            return "{thousand} thousand, {hundred}".format(thousand=self.get_number_name(thousand),
+                                                           hundred=self.get_number_name(hundred))
+
     def get_number_name(self, number):
         """
         Maps the number to its parser
@@ -65,6 +80,8 @@ class NumberToWord(object):
             return self._ten(number)
         elif number < 1000:
             return self._hundred(number)
+        elif number < 1000000:
+            return self._thousand(number)
 
 
 def print_number_name():
