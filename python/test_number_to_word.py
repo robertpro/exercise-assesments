@@ -45,6 +45,16 @@ class NumberToWordTestCase(unittest.TestCase):
         ]
         self._test(to_test, should_be_list)
 
+    def test_million(self):
+        to_test = [1000000, 23451566, 423456345, 999999999]
+        should_be_list = [
+            'one million',
+            'twenty-three million, four hundred and fifty-one thousand, five hundred and sixty-six',
+            'four hundred and twenty-three million, four hundred and fifty-six thousand, three hundred and forty-five',
+            'nine hundred and ninety-nine million, nine hundred and ninety-nine thousand, nine hundred and ninety-nine'
+        ]
+        self._test(to_test, should_be_list)
+
 
 if __name__ == '__main__':
     unittest.main()

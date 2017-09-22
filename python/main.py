@@ -67,6 +67,21 @@ class NumberToWord(object):
             return "{thousand} thousand, {hundred}".format(thousand=self.get_number_name(thousand),
                                                            hundred=self.get_number_name(hundred))
 
+    def _million(self, number):
+        """
+        Check if the number is a million, and returns its value from a combination of self.lower and self.ten
+        if number is not a hundred, get hundred, ten and unit then returns the name of the number in words
+        :param number: int
+        :return: str
+        :returns the number name
+        """
+        million, thousand = divmod(number, 1000000)
+        if number % 1000000 == 0:
+            return "{million} million".format(million=self.lower[million])
+        else:
+            return "{million} million, {thousand}".format(million=self.get_number_name(million),
+                                                          thousand=self.get_number_name(thousand))
+
     def get_number_name(self, number):
         """
         Maps the number to its parser
@@ -76,12 +91,14 @@ class NumberToWord(object):
         """
         if number < 20:
             return self._lower(number)
-        elif number < 100:
+        elif number < 100:  # hundred
             return self._ten(number)
-        elif number < 1000:
+        elif number < 1000:  # Thousand
             return self._hundred(number)
-        elif number < 1000000:
+        elif number < 1000000:  # Million
             return self._thousand(number)
+        elif number < 1000000000:  # Billion
+            return self._million(number)
 
 
 def print_number_name():
