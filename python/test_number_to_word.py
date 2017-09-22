@@ -1,6 +1,6 @@
 import unittest
 
-from main import NumberToWord
+from main import NumberToWord, NumberTooBig
 
 
 class NumberToWordTestCase(unittest.TestCase):
@@ -64,6 +64,9 @@ class NumberToWordTestCase(unittest.TestCase):
             'minus eight hundred and eighty-eight'
         ]
         self._test(to_test, should_be_list)
+
+    def test_not_valid_number(self):
+        self.assertRaises(NumberTooBig, lambda: self.number_to_word.get_number_name('Invalid Input'))
 
 
 if __name__ == '__main__':
