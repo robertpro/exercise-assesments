@@ -55,6 +55,16 @@ class NumberToWordTestCase(unittest.TestCase):
         ]
         self._test(to_test, should_be_list)
 
+    def test_negative(self):
+        to_test = [-1000000, -12, -659, -888]
+        should_be_list = [
+            'minus one million',
+            'minus twelve',
+            'minus six hundred and fifty-nine',
+            'minus eight hundred and eighty-eight'
+        ]
+        self._test(to_test, should_be_list)
+
 
 if __name__ == '__main__':
     unittest.main()

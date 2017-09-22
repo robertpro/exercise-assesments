@@ -1,6 +1,15 @@
 from __future__ import print_function
 
 
+class NumberTooBig(Exception):
+    def __init__(self, number):
+        self.number = number
+        self.message = "Number {0} is too big!".format(number)
+
+    def __str__(self):
+        return self.message
+
+
 class NumberToWord(object):
     def __init__(self):
         """Initialize required vars"""
@@ -89,16 +98,25 @@ class NumberToWord(object):
         :return: str
         :returns the number name
         """
+
+        if number < 1:
+            minus = "minus "
+            number = abs(number)
+        else:
+            minus = ""
+
         if number < 20:
-            return self._lower(number)
+            return minus + self._lower(number)
         elif number < 100:  # hundred
-            return self._ten(number)
+            return minus + self._ten(number)
         elif number < 1000:  # Thousand
-            return self._hundred(number)
+            return minus + self._hundred(number)
         elif number < 1000000:  # Million
-            return self._thousand(number)
+            return minus + self._thousand(number)
         elif number < 1000000000:  # Billion
-            return self._million(number)
+            return minus + self._million(number)
+        else:
+            raise NumberTooBig(number)
 
 
 def print_number_name():
@@ -114,6 +132,8 @@ def main():
             print_number_name()
         except NameError:
             print("Write a valid number please!")
+        except NumberTooBig as e:
+            print(e)
         except KeyboardInterrupt:
             print("Exiting!")
             exit(0)
